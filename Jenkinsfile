@@ -3,23 +3,27 @@ pipeline {
 
     stages {
 
-        // Jenkins ya hace el "Declarative: Checkout SCM" solo,
-        // usando tu repo David-arch-GIT/Demo-Serenity-Cucumber.
-        // No hace falta otro git aquí.
+        stage('Checkout') {
+            steps {
+            
+                git 'https://github.com/David-arch-GIT/Demo-Serenity-Cucumber.git'
+            }
+        }
 
         stage('Build & Test') {
             steps {
-                // Opcional: ver qué Java y Maven ve Jenkins
+                // Opcional, pero útil para validar Java y Maven
                 bat 'java -version'
                 bat 'mvn -version'
 
-                // Ejecutar pruebas de Serenity
+                // Ejecuta los tests de Serenity
                 bat 'mvn clean verify'
             }
         }
 
         stage('Report') {
             steps {
+                
                 publishHTML([
                     reportDir: 'target/site/serenity',
                     reportFiles: 'index.html',
