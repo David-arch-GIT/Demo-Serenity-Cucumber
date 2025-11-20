@@ -5,14 +5,13 @@ pipeline {
 
         stage('Checkout') {
             steps {
-            
                 git 'https://github.com/David-arch-GIT/Demo-Serenity-Cucumber.git'
             }
         }
 
         stage('Build & Test') {
             steps {
-                // Opcional, pero útil para validar Java y Maven
+                // Útil para validar que Jenkins está usando bien Java y Maven
                 bat 'java -version'
                 bat 'mvn -version'
 
@@ -23,7 +22,7 @@ pipeline {
 
         stage('Report') {
             steps {
-                
+                // Publica el reporte de Serenity en Jenkins
                 publishHTML([
                     reportDir: 'target/site/serenity',
                     reportFiles: 'index.html',
