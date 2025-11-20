@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Ruta de tu JDK 17 (según los logs de Maven)
-        JAVA_HOME = 'C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.17.10-hotspot'
+        JAVA_HOME = 'C:\Program Files\Eclipse Adoptium\jdk-17.0.17.10-hotspot\bin'
 
         // Añadimos Java y Maven al PATH para este pipeline
         PATH = "${env.JAVA_HOME}\\bin;C:\\apache-maven-3.9.11\\bin;${env.PATH}"
