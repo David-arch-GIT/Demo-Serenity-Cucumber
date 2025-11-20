@@ -2,11 +2,10 @@ pipeline {
     agent any
 
     environment {
-        // Ruta de tu JDK 17 (según los logs de Maven)
-        JAVA_HOME = 'C:\Program Files\Eclipse Adoptium\jdk-17.0.17.10-hotspot\bin'
-
-        // Añadimos Java y Maven al PATH para este pipeline
-        PATH = "${env.JAVA_HOME}\\bin;C:\\apache-maven-3.9.11\\bin;${env.PATH}"
+        // JDK 17 en el servidor Jenkins
+        // OJO: sin \bin y usando / para no escapar en Groovy
+        JAVA_HOME = 'C:/Program Files/Eclipse Adoptium/jdk-17.0.17.10-hotspot'
+        PATH = "${env.JAVA_HOME}/bin;C:/apache-maven-3.9.11/bin;${env.PATH}"
     }
 
     stages {
