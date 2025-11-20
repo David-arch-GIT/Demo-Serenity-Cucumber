@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+    environment {
+        // Ruta de tu JDK 17 (según los logs de Maven)
+        JAVA_HOME = 'C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.17.10-hotspot'
+
+        // Añadimos Java y Maven al PATH para este pipeline
+        PATH = "${env.JAVA_HOME}\\bin;C:\\apache-maven-3.9.11\\bin;${env.PATH}"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -11,18 +19,18 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                // Útil para validar que Jenkins está usando bien Java y Maven
+                // Verificar que JAVA_HOME y Maven están bien
+                bat 'echo JAVA_HOME=%JAVA_HOME%'
                 bat 'java -version'
                 bat 'mvn -version'
 
-                // Ejecuta los tests de Serenity
+                // Ejecutar los tests de Serenity
                 bat 'mvn clean verify'
             }
         }
 
         stage('Report') {
             steps {
-                // Publica el reporte de Serenity en Jenkins
                 publishHTML([
                     reportDir: 'target/site/serenity',
                     reportFiles: 'index.html',
